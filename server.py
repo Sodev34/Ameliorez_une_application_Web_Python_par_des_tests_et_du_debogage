@@ -85,6 +85,9 @@ def purchasePlaces():
     elif placesRequired > 12:
         flash("You can reserve a maximum of 12 places in a competition.")
         return render_template("booking.html", club=club, competition=competition)
+    elif int(competition["numberOfPlaces"]) < placesRequired:
+        flash("There are not enough places available for this competition.")
+        return render_template("booking.html", club=club, competition=competition)
     else:
         try:
             update_comp_reserved_places(competition, club, placesRequired)
