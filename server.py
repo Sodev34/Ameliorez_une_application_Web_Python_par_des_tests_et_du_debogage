@@ -1,62 +1,33 @@
 from datetime import datetime
-import json
+
 from flask import Flask, render_template, request, redirect, flash, url_for
 
-def loadClubs():
-    with open("clubs.json") as c:
-        listOfClubs = json.load(c)["clubs"]
-        return listOfClubs
-
-
-def loadCompetitions():
-    with open("competitions.json") as comps:
-        listOfCompetitions = json.load(comps)["competitions"]
-        return listOfCompetitions
-
-def competition_date(competitions: list):
-    for comp in competitions:
-        try:
-            comp["past"] = datetime.now() > datetime.strptime(comp["date"][2:], '%y-%m-%d %H:%M:%S')
-        except ValueError:
-            pass
-    return competitions
-
-def comp_reserved_places(comps, clubs_list):
-    places = []
-    for comp in comps:
-        for club in clubs_list:
-            places.append({"competition": comp["name"], "reserved": [0, club["name"]]})
-
-    return places
+from utils import (
+    load_clubs,
+    load_competitions,
+    competition_date,
+    comp_reserved_places,
+    update_comp_reserved_places,
+)
 
 
 app = Flask(__name__)
 app.secret_key = "something_special"
 
-competitions = loadCompetitions()
-clubs = loadClubs()
+competitions = load_competitions()
+clubs = load_clubs()
 places_reserved = comp_reserved_places(competitions, clubs)
-
-
-def update_comp_reserved_places(competition, club, placesRequired):
-    for item in places_reserved:
-        if item["competition"] == competition["name"]:
-            if (
-                item["reserved"][1] == club["name"]
-                and item["reserved"][0] + placesRequired <= 12
-            ):
-                item["reserved"][0] += placesRequired
-                return True
-    return False
 
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
+
 @app.route("/clubs_table")
 def clubs_table():
     return render_template("clubs_table.html", clubs=clubs)
+
 
 @app.route("/showSummary", methods=["POST"])
 def showSummary():
@@ -101,7 +72,9 @@ def purchasePlaces():
         return render_template("booking.html", club=club, competition=competition)
     else:
         try:
-            update_comp_reserved_places(competition, club, placesRequired)
+            update_comp_reserved_places(
+                competition, club, placesRequired, places_reserved
+            )
             competition["numberOfPlaces"] = (
                 int(competition["numberOfPlaces"]) - placesRequired
             )
