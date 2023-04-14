@@ -54,6 +54,9 @@ def update_comp_reserved_places(competition, club, placesRequired):
 def index():
     return render_template("index.html")
 
+@app.route("/clubs_table")
+def clubs_table():
+    return render_template("clubs_table.html", clubs=clubs)
 
 @app.route("/showSummary", methods=["POST"])
 def showSummary():
