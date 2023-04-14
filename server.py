@@ -79,7 +79,7 @@ def purchasePlaces():
                 int(competition["numberOfPlaces"]) - placesRequired
             )
             club["points"] = int(club["points"]) - placesRequired
-            flash("Great-booking complete!")
+            flash("Great-booking complete! You have reserved {} seats.".format(placesRequired))
             return render_template("welcome.html", club=club, competitions=competitions)
 
         except ValueError:
