@@ -62,7 +62,8 @@ def showSummary():
         d_competitions = competition_date(competitions)
         return render_template("welcome.html", club=club, competitions=d_competitions)
     except IndexError:
-        return render_template("index.html", error=True)
+        return render_template('index.html', error="Unknown Email"), 403
+       
 
 
 @app.route("/book/<competition>/<club>")
