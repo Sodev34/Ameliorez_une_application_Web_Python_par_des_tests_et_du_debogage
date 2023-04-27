@@ -2,6 +2,7 @@ from server import app
 
 
 class TestLog:
+    
     client = app.test_client()
 
     def test_login(self):
