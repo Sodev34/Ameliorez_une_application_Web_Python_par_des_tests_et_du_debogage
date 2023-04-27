@@ -1,5 +1,6 @@
 from server import app
 
+
 class TestEmail:
 
     client = app.test_client()

@@ -1,5 +1,6 @@
 from server import app
 
+
 def test_book():
     client = app.test_client()
     competition = "Big Competition"
@@ -8,5 +9,3 @@ def test_book():
     assert result.status_code == 200
     assert b"club" in result.data
     assert b"competition" in result.data
-
-
