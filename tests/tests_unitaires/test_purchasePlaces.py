@@ -4,7 +4,7 @@ def test_purchasePlaces():
     client = app.test_client()
     result = client.post("/purchasePlaces", data={
         "club": "Iron Temple",
-        "competition": "Big Test",
+        "competition": "Big Competition",
         "places": "2",
     })
     assert result.status_code == 200
@@ -15,7 +15,7 @@ def test_purchasePlaces_invalid_places():
     client = app.test_client()
     result = client.post("/purchasePlaces", data={
         "club": "Iron Temple",
-        "competition": "Big Test",
+        "competition": "Big Competition",
         "places": "-1",
     })
     assert result.status_code == 302
@@ -25,7 +25,7 @@ def test_purchasePlaces_invalid_places_exceed_club_points():
     client = app.test_client()
     result = client.post("/purchasePlaces", data={
         "club": "Iron Temple",
-        "competition": "Big Test",
+        "competition": "Big Competition",
         "places": "100",
     })
     assert result.status_code == 302
@@ -35,7 +35,7 @@ def test_purchasePlaces_invalid_max_places():
     client = app.test_client()
     result = client.post("/purchasePlaces", data={
         "club": "Simply Lift",
-        "competition": "Big Test",
+        "competition": "Big Competition",
         "places": "13",
     })
     assert result.status_code == 200
@@ -46,7 +46,7 @@ def test_purchasePlaces_invalid_not_enough_places():
     client = app.test_client()
     result = client.post("/purchasePlaces", data={
         "club": "Simply Lift",
-        "competition": "Small Test",
+        "competition": "Small Competition",
         "places": "10",
     })
     assert result.status_code == 200

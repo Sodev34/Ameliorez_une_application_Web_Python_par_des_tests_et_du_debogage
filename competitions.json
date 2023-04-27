@@ -1,12 +1,12 @@
 {
     "competitions": [
         {
-            "name": "Big Test",
+            "name": "Big Competition",
             "date": "2023-07-11 15:30:00",
             "numberOfPlaces": "18"
         },
         {
-            "name": "Small Test",
+            "name": "Small Competition",
             "date": "2023-11-05 14:30:00",
             "numberOfPlaces": "7"
         },
