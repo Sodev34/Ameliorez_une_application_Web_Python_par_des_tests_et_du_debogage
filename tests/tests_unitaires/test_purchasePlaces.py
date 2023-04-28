@@ -1,7 +1,7 @@
 from server import app
 
 
-def test_purchasePlaces():
+def test_purchase_places():
     client = app.test_client()
     result = client.post(
         "/purchasePlaces",
@@ -15,7 +15,7 @@ def test_purchasePlaces():
     assert b"Great-booking complete!" in result.data
 
 
-def test_purchasePlaces_invalid_places():
+def test_purchase_places_invalid_places():
     client = app.test_client()
     result = client.post(
         "/purchasePlaces",
@@ -28,7 +28,7 @@ def test_purchasePlaces_invalid_places():
     assert result.status_code == 302
 
 
-def test_purchasePlaces_invalid_places_exceed_club_points():
+def test_purchase_places_invalid_places_exceed_club_points():
     client = app.test_client()
     result = client.post(
         "/purchasePlaces",
@@ -41,7 +41,7 @@ def test_purchasePlaces_invalid_places_exceed_club_points():
     assert result.status_code == 302
 
 
-def test_purchasePlaces_invalid_max_places():
+def test_purchase_places_invalid_max_places():
     client = app.test_client()
     result = client.post(
         "/purchasePlaces",
@@ -55,7 +55,7 @@ def test_purchasePlaces_invalid_max_places():
     assert b"You can reserve a maximum of 12 places in a competition." in result.data
 
 
-def test_purchasePlaces_invalid_not_enough_places():
+def test_purchase_places_invalid_not_enough_places():
     client = app.test_client()
     result = client.post(
         "/purchasePlaces",
