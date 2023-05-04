@@ -33,8 +33,8 @@ def clubs_table():
 def show_summary():
     try:
         club = [club for club in clubs if club["email"] == request.form["email"]][0]
-        d_competitions = competition_date(competitions)
-        return render_template("welcome.html", club=club, competitions=d_competitions)
+        av_competitions = competition_date(competitions)
+        return render_template("welcome.html", club=club, competitions=av_competitions)
     except IndexError:
         flash("Unknown Email")
         return render_template("index.html"), 403
